@@ -3,6 +3,7 @@ package main
 import (
 	configuration "SpecForge_api_backend/internal/configuration"
 	handler "SpecForge_api_backend/internal/handlers"
+	"SpecForge_api_backend/internal/middleware/authentication"
 	globalUtility "SpecForge_api_backend/utilities/globalUtility"
 	"context"
 	"fmt"
@@ -44,7 +45,8 @@ func startApiServer() {
 	router := gin.New()
 
 	//use middlewares here
-	
+	router.Use(authentication.AuthenticateUser)
+
 	handler.HandleRoutes(router)
 
 	serverPort := ""
